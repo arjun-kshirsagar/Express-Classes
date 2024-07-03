@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "sql"
+  },
+  {
+    "id": 2,
+    "name": "java-springboot"
+  },
+  {
+    "id": 3,
+    "name": "course3"
+  },
+  {
+    "id": 4,
+    "name": "course4"
+  },
+  {
+    "id": 5,
+    "name": "My-Sql"
+  }
+]
