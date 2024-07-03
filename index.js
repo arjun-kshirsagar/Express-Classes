@@ -1,6 +1,8 @@
 const express =  require('express');
 const app = express();
+
 app.use(express.json()); // this is a middleware, it will parse the body of the request and if there is a json object in the body, it will parse it and set req.body property
+app.use(middleware);
 
 let courses = [
     {id: 1, name: 'course1'},
@@ -50,3 +52,17 @@ app.delete('/courses/:id', (req, res) => {
 
     res.json(course);
 });
+
+function middleware(req, res, next) {
+    console.log('Middleware called');
+    next();
+}
+
+const customLogger = (req, res, next) => {
+    console.log('Custom Middleware called');
+    console.log(
+        'Request Type:', req.method, 'Request IS:', req.ip, 'Request HostName:', req.hostname, 'Request Date:', new Date());
+    next();
+};
+
+app.use(customLogger);
