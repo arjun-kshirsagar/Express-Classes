@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-mongoose.connect()
+const app = express();
+app.use(express.json());    // middleware to parse the body of the request
+
+mongoose.connect("")
 .then(() => {
     console.log("Connected to MongoDB");
 })
@@ -29,11 +32,32 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['Electronics', 'Clothing', 'Books', 'Furniture']
+        // enum: ['Electronics', 'Clothing', 'Books', 'Furniture']
     }
 });
 
-const app = express();
+const productModel = mongoose.model('Products', productSchema); // we need to pass the ref of the schema in this model
+
+// create 
+app.post('/api/products', async (req, res) => {
+    const body = req.body;
+    const product = {
+        product_name: req.body.product_name,
+        product_price: req.body.product_price,
+        isInStock: req.body.isInStock,
+        category: req.body.category
+    };
+
+    console.log(product);
+    return res.status(201).json({MessageChannel: "Product created successfully"});
+    // try {
+    //     const result = await product.save();
+    //     res.send(result);
+    // } catch (err) {
+    //     res.status(400).send(err);
+    // }
+});
+
 
 app.listen(8086, () => {
     console.log('Listening on port 8086...');
